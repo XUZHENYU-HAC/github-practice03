@@ -7,6 +7,7 @@ namespace Chiritori
     {
         public void Init()
         {
+            Image.Load();
             MyRandom.Init();
             Input.Init();
         }
@@ -18,6 +19,7 @@ namespace Chiritori
 
         public void Draw()
         {
+            DX.DrawGraph(0, 0, Image.woodFloor);
         }
     }
 }
