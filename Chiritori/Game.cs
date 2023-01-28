@@ -6,14 +6,16 @@ namespace Chiritori
 {
     public class Game
     {
-        Chiritori chiritori;
+        Chiritori[] chiritories;
         Gomi gomi; // ゴミ
         public void Init()
         {
             Image.Load();
             MyRandom.Init();
             Input.Init();
-            chiritori = new Chiritori();
+            chiritories = new Chiritori[2]; // チリトリーの配列を生成
+            chiritories[0] = new Chiritori(DX.PAD_INPUT_1, Image.chiritoriGreen); // Player1生成
+            chiritories[1] = new Chiritori(DX.PAD_INPUT_2, Image.chiritoriRed); // Player2生成
             gomi = new Gomi();
         }
 
@@ -21,16 +23,20 @@ namespace Chiritori
         {
             Input.Update();
 
-            chiritori.Update();
-
-            float deltaX = chiritori.x - gomi.x; // x方向の差分
-            float deltaY = chiritori.y - gomi.y; // y方向の差分
-            float distance = (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY); // 距離
-
-            // 距離が50以下なら
-            if (distance <= 50)
+            for (int i = 0; i < chiritories.Length; i++)
             {
-                gomi.ResetPosition(); // ゴミの場所をリセット
+                Chiritori chiritori = chiritories[i];
+                chiritori.Update();
+
+                float deltaX = chiritori.x - gomi.x; // x方向の差分
+                float deltaY = chiritori.y - gomi.y; // y方向の差分
+                float distance = (float)Math.Sqrt(deltaX * deltaX + deltaY * deltaY); // 距離
+
+                // 距離が50以下なら
+                if (distance <= 50)
+                {
+                    gomi.ResetPosition(); // ゴミの場所をリセット
+                }
             }
         }
 
@@ -38,7 +44,10 @@ namespace Chiritori
         {
             DX.DrawGraph(0, 0, Image.woodFloor);
             gomi.Draw();
-            chiritori.Draw();
+            for (int i = 0; i < chiritories.Length; i++)
+            {
+                chiritories[i].Draw();
+            }
         }
     }
 }
