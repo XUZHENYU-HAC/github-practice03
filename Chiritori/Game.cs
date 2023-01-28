@@ -1,4 +1,5 @@
 ﻿using DxLibDLL;
+using MyLib;
 
 namespace Chiritori
 {
@@ -6,10 +7,13 @@ namespace Chiritori
     {
         public void Init()
         {
+            MyRandom.Init();
+            Input.Init();
         }
 
         public void Update()
         {
+            Input.Update();
         }
 
         public void Draw()
