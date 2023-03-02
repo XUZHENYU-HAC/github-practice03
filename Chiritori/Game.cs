@@ -8,8 +8,6 @@ namespace Chiritori
     {
         Chiritori[] chiritories;
         Gomi gomi; // ゴミ
-        int[] scores;
-
         public void Init()
         {
             Image.Load();
@@ -18,7 +16,6 @@ namespace Chiritori
             chiritories = new Chiritori[2]; // チリトリーの配列を生成
             chiritories[0] = new Chiritori(DX.PAD_INPUT_1, Image.chiritoriGreen); // Player1生成
             chiritories[1] = new Chiritori(DX.PAD_INPUT_2, Image.chiritoriRed); // Player2生成
-            scores = new int[2];
             gomi = new Gomi();
         }
 
@@ -38,7 +35,6 @@ namespace Chiritori
                 // 距離が50以下なら
                 if (distance <= 50)
                 {
-                    scores[i] += 1;
                     gomi.ResetPosition(); // ゴミの場所をリセット
                 }
             }
@@ -51,12 +47,6 @@ namespace Chiritori
             for (int i = 0; i < chiritories.Length; i++)
             {
                 chiritories[i].Draw();
-            }
-
-            // スコアを描画
-            for (int i = 0; i < scores.Length; i++)
-            {
-                DX.DrawString(300 + 60 * i, 20, scores[i].ToString(), DX.GetColor(255, 255, 255));
             }
         }
     }
